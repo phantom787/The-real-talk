@@ -10,7 +10,7 @@ export default function StoryForm() {
     if (!content || !category) return;
 
     try {
-      await axios.post('https://YOUR_BACKEND_URL/api/stories', { content, category });
+      await axios.post('https://conquer-fm5l.onrender.com/api/stories', { content, category });
       setContent('');
       setCategory('');
       alert('Thank you for sharing your story! 💌');
