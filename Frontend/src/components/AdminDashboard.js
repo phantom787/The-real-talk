@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const BACKEND_URL = "https://YOUR_BACKEND_URL"; // <-- Replace with your deployed backend URL
+const BACKEND_URL = "https://conquer-fm5l.onrender.com"; // <-- Replace with your deployed backend URL
 
 export default function AdminDashboard() {
   const [showLogin, setShowLogin] = useState(false);
@@ -12,7 +12,7 @@ export default function AdminDashboard() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const secret = "MySuperSecretCode123"; // optional secret before showing login
+  const secret = "niggah"; // optional secret before showing login
 
   // Verify secret code
   const verifyCode = (e) => {
