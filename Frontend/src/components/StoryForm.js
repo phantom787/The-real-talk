@@ -8,7 +8,7 @@ export default function StoryForm() {
     const handleSubmit = async e => {
         e.preventDefault();
         if(!content || !category) return;
-        await axios.post('https://YOUR_RENDER_BACKEND_URL/api/stories', { content, category });
+        await axios.post('https://conquer-fm5l.onrender.com', { content, category });
         setContent('');
         setCategory('');
         window.location.reload(); // refresh to see new story
