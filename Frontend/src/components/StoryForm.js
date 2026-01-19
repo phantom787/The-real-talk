@@ -1,29 +1,36 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 export default function StoryForm() {
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!content || !category) return;
+    if (!content || !category) {
+      alert("Please enter content and category");
+      return;
+    }
 
     try {
-      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-      await axios.post('https://conquer-fm5l.onrender.com/api/stories', { content, category });
+      setLoading(true);
+      await axios.post(`${BACKEND_URL}/api/stories`, { content, category });
       setContent('');
       setCategory('');
-      alert('Thank you for sharing your story! 💌');
-      window.location.reload();
+      alert("Thank you for sharing your story! 💌");
     } catch (err) {
       console.error(err);
-      alert('Error submitting story.');
+      alert("Error submitting story. Check backend URL and that backend is running.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form id="story-form" className="story-form" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} id="story-form" className="story-form">
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
@@ -35,7 +42,9 @@ export default function StoryForm() {
         onChange={(e) => setCategory(e.target.value)}
         placeholder="Category (e.g., Anxiety, Work, Relationships)"
       />
-      <button type="submit">Share Your Story 💌</button>
+      <button type="submit" disabled={loading}>
+        {loading ? "Submitting..." : "Share Your Story 💌"}
+      </button>
     </form>
   );
 }
