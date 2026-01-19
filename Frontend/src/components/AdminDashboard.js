@@ -9,18 +9,18 @@ export default function AdminDashboard() {
 
     const login = async e => {
         e.preventDefault();
-        const res = await axios.post('https://YOUR_RENDER_BACKEND_URL/api/admin/login', { username, password });
+        const res = await axios.post('https://conquer-fm5l.onrender.com', { username, password });
         setToken(res.data.token);
         fetchStories(res.data.token);
     };
 
     const fetchStories = async (token) => {
-        const res = await axios.get('https://YOUR_RENDER_BACKEND_URL/api/stories');
+        const res = await axios.get('https://conquer-fm5l.onrender.com');
         setStories(res.data);
     };
 
     const deleteStory = async id => {
-        await axios.delete(`https://YOUR_RENDER_BACKEND_URL/api/admin/story/${id}`, {
+        await axios.delete(`https://conquer-fm5l.onrender.com/${id}`, {
             headers: { Authorization: token }
         });
         setStories(stories.filter(s => s._id !== id));
