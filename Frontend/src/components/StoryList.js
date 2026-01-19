@@ -5,7 +5,7 @@ export default function StoryList({ selectedCategory }) {
   const [stories, setStories] = useState([]);
 
   useEffect(() => {
-    axios.get('https://YOUR_BACKEND_URL/api/stories')
+    axios.get('https://conquer-fm5l.onrender.com/api/stories')
       .then(res => setStories(res.data))
       .catch(err => console.error(err));
   }, []);
