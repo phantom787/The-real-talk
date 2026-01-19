@@ -10,6 +10,7 @@ export default function StoryForm() {
     if (!content || !category) return;
 
     try {
+      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
       await axios.post('https://conquer-fm5l.onrender.com/api/stories', { content, category });
       setContent('');
       setCategory('');
