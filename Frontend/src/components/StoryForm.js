@@ -2,32 +2,39 @@ import { useState } from 'react';
 import axios from 'axios';
 
 export default function StoryForm() {
-    const [content, setContent] = useState('');
-    const [category, setCategory] = useState('');
+  const [content, setContent] = useState('');
+  const [category, setCategory] = useState('');
 
-    const handleSubmit = async e => {
-        e.preventDefault();
-        if(!content || !category) return;
-        await axios.post('https://conquer-fm5l.onrender.com', { content, category });
-        setContent('');
-        setCategory('');
-        window.location.reload(); // refresh to see new story
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!content || !category) return;
 
-    return (
-        <form onSubmit={handleSubmit} className="story-form">
-            <textarea 
-                value={content} 
-                onChange={e => setContent(e.target.value)} 
-                placeholder="Share your story anonymously..."
-            />
-            <input 
-                type="text" 
-                value={category} 
-                onChange={e => setCategory(e.target.value)} 
-                placeholder="Category"
-            />
-            <button type="submit">Submit</button>
-        </form>
-    );
+    try {
+      await axios.post('https://YOUR_BACKEND_URL/api/stories', { content, category });
+      setContent('');
+      setCategory('');
+      alert('Thank you for sharing your story! 💌');
+      window.location.reload();
+    } catch (err) {
+      console.error(err);
+      alert('Error submitting story.');
+    }
+  };
+
+  return (
+    <form id="story-form" className="story-form" onSubmit={handleSubmit}>
+      <textarea
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        placeholder="How are you feeling today? Share anything, big or small…"
+      />
+      <input
+        type="text"
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        placeholder="Category (e.g., Anxiety, Work, Relationships)"
+      />
+      <button type="submit">Share Your Story 💌</button>
+    </form>
+  );
 }
